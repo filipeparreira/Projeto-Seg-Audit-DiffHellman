@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://schema.omg.org/spec/UML/2.1">
+  <xmi:Documentation exporter="umbrello uml modeller 25.04.2 (Applications 25.04.2) http://umbrello.kde.org" exporterVersion="2.0.4"/>
+  <uml:Model xmi:id="m1" name="Modelo UML">
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="folder" name="folder"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="dataType" name="dataType"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Logical_View" name="Logical View" stereotype="folder">
+      <uml:Package xmi:id="Datatypes" name="Datatypes" stereotype="folder">
+        <packagedElement xmi:type="uml:DataType" xmi:id="uDosLnL3BnA4e" name="char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uWUmSAMEav11G" name="int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u6YS3eVUEBm06" name="float" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u4c2TahIlI24p" name="double" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u0oIV6jojzO2J" name="bool" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="unRc8z8EhYPR6" name="string" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uU69D5ddHEDyc" name="unsigned char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="udjqYfWkiuVpf" name="signed char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uNp77Q5s9jfKc" name="unsigned int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u65fTRNjjQ7SY" name="signed int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="unp7dUYqPjhNA" name="short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="ucARhQXvPBpMN" name="unsigned short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u1itAxsTF2vn3" name="signed short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uWucMSTzAaID0" name="long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uRyeiuWLuRi0y" name="signed long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uM3G8WGrQSkAA" name="unsigned long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="urezssxX5AIld" name="long double" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uUh2rJIauBBGp" name="wchar_t" stereotype="dataType"/>
+      </uml:Package>
+      <packagedElement xmi:type="uml:Class" xmi:id="uqR7QS8OGx2ja" name="client"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="uFhYNjmuEfwyC" name="server"/>
+      <xmi:Extension extender="umbrello">
+        <diagrams resolution="96">
+          <diagram xmi.id="u7mGzt30v70cT" name="diagrama de classe" type="1" documentation="" backgroundcolor="#ffffff" usebackgroundcolor="0" fillcolor="#ffffc0" font="Ubuntu,11,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="100" canvasheight="800" canvaswidth="1100" isopen="0">
+            <widgets/>
+            <messages/>
+            <associations/>
+          </diagram>
+          <diagram xmi.id="uXEF1R1K9bJSP" name="diagrama de sequência" type="3" documentation="" backgroundcolor="#ffffff" usebackgroundcolor="0" fillcolor="#ffffc0" font="Ubuntu,11,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="71" canvasheight="518" canvaswidth="919" isopen="1" autoincrementsequence="0">
+            <widgets>
+              <objectwidget xmi.id="uFhYNjmuEfwyC" localid="umAYC3hIKfjPj" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="889" y="80" width="63" height="27" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <objectwidget xmi.id="uqR7QS8OGx2ja" localid="uWR4PYjqOFm7D" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="515" y="80" width="58" height="27" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <notewidget xmi.id="u2HIJFhfMApoK" localid="ukk4xdGlFOtxq" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="50" y="169" width="473" height="34" isinstance="0" showstereotype="2" text="Somente se houver um retorno de mensagem estabelecido (200 OK)&#10;" noteType="0"/>
+            </widgets>
+            <messages>
+              <messagewidget xmi.id="usQhqmgXKtkIf" localid="uqTkRHON0Cr3h" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="545" y="449" width="374" height="8" isinstance="0" showstereotype="2" seqnum="" widgetaid="uWR4PYjqOFm7D" widgetbid="umAYC3hIKfjPj" operation="HTTP POST encrypted(image&lt;encoded&gt;)" sequencemessagetype="1001" textid="uH90q3RjTf1nX">
+                <floatingtext xmi.id="uH90q3RjTf1nX" localid="uja8HlKEh4DV5" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="586" y="428" width="285" height="21" isinstance="0" showstereotype="2" text="HTTP POST encrypted(image&lt;encoded&gt;)" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uFM1AxEBOQ7i7" localid="uLWaYpEHW48Pm" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="545" y="220" width="374" height="8" isinstance="0" showstereotype="2" seqnum="" widgetaid="umAYC3hIKfjPj" widgetbid="uWR4PYjqOFm7D" operation="HTTP POST p, g" sequencemessagetype="1001" textid="uloYdsFzAJynB">
+                <floatingtext xmi.id="uloYdsFzAJynB" localid="uXxU28vSRUFJy" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="700" y="199" width="114" height="21" isinstance="0" showstereotype="2" text="HTTP POST p, g" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uJRykkAbwWQJb" localid="umibxmWwXCbZq" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="545" y="352" width="374" height="8" isinstance="0" showstereotype="2" seqnum="" widgetaid="umAYC3hIKfjPj" widgetbid="uWR4PYjqOFm7D" operation="HTTP POST Kpu" sequencemessagetype="1001" textid="uHjV6vf9jYFlf">
+                <floatingtext xmi.id="uHjV6vf9jYFlf" localid="uFTfeWiNMw9bn" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="698" y="331" width="116" height="21" isinstance="0" showstereotype="2" text="HTTP POST Kpu" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="ukSVRPn7OtKKJ" localid="u4bkbOC44of0T" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="545" y="314" width="374" height="8" isinstance="0" showstereotype="2" seqnum="" widgetaid="uWR4PYjqOFm7D" widgetbid="umAYC3hIKfjPj" operation="HTTP POST Kpu" sequencemessagetype="1001" textid="uNMmcwFcMnWo1">
+                <floatingtext xmi.id="uNMmcwFcMnWo1" localid="uA08pVwtpP95X" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="698" y="293" width="116" height="21" isinstance="0" showstereotype="2" text="HTTP POST Kpu" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uYVIMiX4hQdE7" localid="uss0NyltsPWgw" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="545" y="154" width="374" height="8" isinstance="0" showstereotype="2" seqnum="" widgetaid="uWR4PYjqOFm7D" widgetbid="umAYC3hIKfjPj" operation="HTTP GET oi" sequencemessagetype="1001" textid="uKPJ6eyfK67jf">
+                <floatingtext xmi.id="uKPJ6eyfK67jf" localid="uYReaBtbPr8N0" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="722" y="133" width="92" height="21" isinstance="0" showstereotype="2" text="HTTP GET oi" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uOQNbJYjUvRyY" localid="ut94e4i2zUDeD" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="545" y="510" width="374" height="8" isinstance="0" showstereotype="2" seqnum="" widgetaid="umAYC3hIKfjPj" widgetbid="uWR4PYjqOFm7D" operation="HTTP POST encrypted(random_image&lt;encoded&gt;)" sequencemessagetype="1001" textid="uRDsbAbQXioAG">
+                <floatingtext xmi.id="uRDsbAbQXioAG" localid="uZ6ANxKMz86V4" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu,11,-1,5,50,0,0,0,0,0" autoresize="1" x="570" y="489" width="345" height="21" isinstance="0" showstereotype="2" text="HTTP POST encrypted(random_image&lt;encoded&gt;)" pretext="" posttext="" role="704"/>
+              </messagewidget>
+            </messages>
+            <associations/>
+          </diagram>
+        </diagrams>
+      </xmi:Extension>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="Use_Case_View" name="Use Case View" stereotype="folder"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Component_View" name="Component View" stereotype="folder"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Deployment_View" name="Deployment View" stereotype="folder"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Entity_Relationship_Model" name="Entity Relationship Model" stereotype="folder"/>
+  </uml:Model>
+  <xmi:Extension extender="umbrello">
+    <docsettings viewid="uXEF1R1K9bJSP" documentation="" uniqueid="uF4dOdT8NH72S"/>
+    <listview>
+      <listitem id="Views" type="800" open="1">
+        <listitem id="Entity_Relationship_Model" type="836" open="1"/>
+        <listitem id="Deployment_View" type="827" open="1"/>
+        <listitem id="Use_Case_View" type="802" open="1"/>
+        <listitem id="Component_View" type="821" open="1"/>
+        <listitem id="Logical_View" type="801" open="1">
+          <listitem id="uqR7QS8OGx2ja" type="813" open="1"/>
+          <listitem id="u7mGzt30v70cT" type="807" label="diagrama de classe" open="0"/>
+          <listitem id="uXEF1R1K9bJSP" type="810" label="diagrama de sequência" open="0"/>
+          <listitem id="uFhYNjmuEfwyC" type="813" open="1"/>
+          <listitem id="Datatypes" type="830" open="0">
+            <listitem id="u0oIV6jojzO2J" type="829" open="0"/>
+            <listitem id="uDosLnL3BnA4e" type="829" open="0"/>
+            <listitem id="u4c2TahIlI24p" type="829" open="0"/>
+            <listitem id="u6YS3eVUEBm06" type="829" open="0"/>
+            <listitem id="uWUmSAMEav11G" type="829" open="0"/>
+            <listitem id="urezssxX5AIld" type="829" open="0"/>
+            <listitem id="uWucMSTzAaID0" type="829" open="0"/>
+            <listitem id="unp7dUYqPjhNA" type="829" open="0"/>
+            <listitem id="udjqYfWkiuVpf" type="829" open="0"/>
+            <listitem id="u65fTRNjjQ7SY" type="829" open="0"/>
+            <listitem id="uRyeiuWLuRi0y" type="829" open="0"/>
+            <listitem id="u1itAxsTF2vn3" type="829" open="0"/>
+            <listitem id="unRc8z8EhYPR6" type="829" open="0"/>
+            <listitem id="uU69D5ddHEDyc" type="829" open="0"/>
+            <listitem id="uNp77Q5s9jfKc" type="829" open="0"/>
+            <listitem id="uM3G8WGrQSkAA" type="829" open="0"/>
+            <listitem id="ucARhQXvPBpMN" type="829" open="0"/>
+            <listitem id="uUh2rJIauBBGp" type="829" open="0"/>
+          </listitem>
+        </listitem>
+      </listitem>
+    </listview>
+    <codegeneration>
+      <codegenerator language="C++"/>
+    </codegeneration>
+  </xmi:Extension>
+</xmi:XMI>

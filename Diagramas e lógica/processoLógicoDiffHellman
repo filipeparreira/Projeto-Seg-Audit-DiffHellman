@@ -1,0 +1,20 @@
+* Implementar um sistema cliente-servidor para estabelecer a chave secreta com Diffie-Hellman. Aqui pode ser utilizado qualquer tecnologia que transmita dados em texto às claras, como, por exemplo, socket ou websocket.
+
+	- Anuncio de chaves publicas na comunicação (valores de p e g públicos)
+	- Ambas partes definem valores "aleatórios de chaves privadas"
+	- Ambas partes calculam a chave pública por meio de g e p, através da formula: Kpu = g^Kpr mod p 
+	- Definido as chaves públicas é trocado entre as partes 
+	- Ao receber a chave pública, é calculado a chave secreta: K = (Kpu_recebida)^Kpr_host mod p 
+	- Já calculado as chaves secretas, comparando e sendo iguais, é definida a chave de sessão.
+	
+* Usar um algoritmo de criptografia com a chave secreta estabelecida para codificar um arquivo pequeno e transmiti-lo de maneira segura. Atenção: o algoritmo de criptografia em si não deve ser implementado pelo grupo. Vocês devem usar um algoritmo como o AES. Para isso, verifiquem quais algoritmos de chave simétrica estão disponíveis nas bibliotecas da linguagem que vocês escolheram para implementar o trabalho. Não esqueçam de criptografar/descriptografar as mensagens com a chave estabelecida.
+
+	- Utilizando o AES, criptografar a mensagem (imagem) utilizando a chave secreta do host.
+	- Enviar a mensagem
+	- Recebendo a mensagem, é necessário descriptografar as mensagens com a chave secreta????
+
+* Utilizando hash, garanta a integridade dos dados transmitidos após o estabelecimento da chave. Utilize algoritmos já implementados para essa funcionalidade como: Message Digest (MD) ou Secure Hash Function (SHA).
+
+	- Encriptar o resumo da mensagem utilizando o sha256 ou o sha512
+	- Enviar o código de resumo juntamente com a mensagem, para verificar in loco se a mensagem é válida (utiliza-se a chave de sessão)
+
