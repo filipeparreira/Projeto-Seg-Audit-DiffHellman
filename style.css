@@ -55,9 +55,8 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* NOVAS CLASSES ADICIONADAS */
 .image-display {
-    max-width: 100%;
+    width: 300px;
     height: auto;
     border: 1px solid #ddd;
     margin-top: 10px;

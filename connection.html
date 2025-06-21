@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Envio e Visualização de Imagens</title>
+    <title>Diffie-Hellman Keys</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Diffie-Hellman - Troca de Imagens</h1>
@@ -18,15 +20,17 @@
 
         <div class="form-group">
             <label>Pré-visualização da Imagem a Enviar:</label>
-            <img id="previewImage" src="" alt="Pré-visualização" class="image-display hidden">
+            <img id="previewImage" alt="Pré-visualização" class="image-display hidden">
             <p id="noPreviewMessage" class="message-text">Nenhuma imagem selecionada para pré-visualização.</p>
         </div>
 
         <div class="form-group">
             <label for="receivedImage">Imagem Recebida:</label>
-            <img id="receivedImage" src="" alt="Imagem Recebida" class="image-display display-block">
+            <img id="receivedImage" class="image-display display-block">
             <p id="noImageMessage" class="message-text">Nenhuma imagem recebida ainda.</p>
         </div>
     </div>
+    <script type="module" src="script.js"></script>
 </body>
+
 </html>
