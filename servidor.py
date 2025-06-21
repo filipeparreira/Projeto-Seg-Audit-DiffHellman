@@ -27,8 +27,4 @@ def conexao():
         K_pub_CLIENTE = request.json.get('K_pub')
         print(f"Chave publica recebida do cliente: {K_pub_CLIENTE}")
         
-        return jsonify({
-        "status": "sucesso",
-        "mensagem": "Requisição processada com sucesso!",
-        "codigo": 200
-    })
+        return jsonify({"status": "sucesso", "mensagem": "Requisição processada com sucesso!","codigo": 200})

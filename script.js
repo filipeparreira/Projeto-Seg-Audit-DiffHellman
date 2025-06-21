@@ -30,10 +30,6 @@ if (!K_privada_cliente_str) {
     }
 }
 
-// Agora K_priv_CLIENT_bigint sempre será um BigInt válido,
-// pronto para ser usado no click listener
-// --- Fim da Seção de Inicialização da Chave Privada ---
-
 document.getElementById("connectButton").addEventListener("click", async () => {
     const url = document.getElementById("urlInput").value;
 
@@ -50,7 +46,7 @@ document.getElementById("connectButton").addEventListener("click", async () => {
         let responseContent = "";
 
         // Verifica se houve um 200 OK
-        if (response.status === 200) { // Usar === e verificar status diretamente é melhor
+        if (response.status === 200) { 
             // Tratamento da resposta e obtenção do conteudo
             const contentType = response.headers.get("content-type");
 
@@ -58,30 +54,25 @@ document.getElementById("connectButton").addEventListener("click", async () => {
             if (contentType && contentType.includes("application/json")) {
                 // Obter os valores de P e G
                 const json = await response.json();
-
-                // Garanta que P e G do JSON sejam convertidos para BigInt
-                // O servidor DEVE enviar P e G como strings se forem muito grandes para Number
-                // Caso contrário, você pode perder precisão aqui.
+            
                 const P = BigInt(json["P"]);
                 const G = BigInt(json["G"]);
-                const K_pub_SERVER = BigInt(json["K_pub"]); // Assumindo que K_pub_SERVER também pode ser grande
+                const K_pub_SERVER = BigInt(json["K_pub"]);
 
                 console.log("Chave pública recebida do servidor: " + K_pub_SERVER);
 
                 // Calculo da chave publica cliente
-                // Usamos a variável K_priv_CLIENT_bigint que já foi tratada
                 const K_pub_CLIENT = modPow(G, K_priv_CLIENT_bigint, P);
                 console.log("Chave pública definida: " + K_pub_CLIENT);
 
-                // Armazenando no localStorage (salvar como string!)
+                // Armazenando no localStorage 
                 localStorage.setItem("P", P.toString());
                 localStorage.setItem("G", G.toString());
                 localStorage.setItem("K_pub_SERVER", K_pub_SERVER.toString());
                 localStorage.setItem("K_pub_CLIENT", K_pub_CLIENT.toString());
 
                 // Chame a função de envio da chave pública
-                await enviarChavePublica(url); // Use await para garantir que termine antes de continuar
-                                               // E garanta que a URL está correta para o POST
+                await enviarChavePublica(url);                                                
             } else {
                 responseContent = `Status: ${response.status} ${response.statusText}\n\n`;
                 responseContent +=
@@ -103,6 +94,7 @@ document.getElementById("connectButton").addEventListener("click", async () => {
     }
 });
 
+// Calculo da chave publica 
 function modPow(base, exp, mod) {
     if (mod === 1n) return 0n;
     let res = 1n;
@@ -118,8 +110,7 @@ function modPow(base, exp, mod) {
     return res;
 }
 
-async function enviarChavePublica(url) {
-    
+async function enviarChavePublica(url) {   
     const response = await fetch(url, {
         method: "POST", 
         mode: "cors", 
