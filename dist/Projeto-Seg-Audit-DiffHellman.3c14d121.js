@@ -701,18 +701,18 @@ try {
 // Verificação de elementos na página 1 
 const connectButton = document.getElementById("connectButton");
 if (connectButton) document.getElementById("connectButton").addEventListener("click", async ()=>{
-    const url1 = document.getElementById("urlInput").value;
-    var urlAux = url1.split('/');
+    const url = document.getElementById("urlInput").value;
+    var urlAux = url.split('/');
     var urlServer = urlAux[0] + "//" + urlAux[2] + "/";
     localStorage.setItem("urlServer", urlServer);
     // Verifica se a URL foi digitada
-    if (!url1) {
+    if (!url) {
         window.alert("Insira uma URL v\xe1lida no campo!");
         return;
     }
     try {
         // Requisição de conexão para o servidor, ao clicar o botão
-        const response = await fetch(url1, {
+        const response = await fetch(url, {
             method: "GET",
             mode: "cors"
         });
@@ -738,10 +738,10 @@ if (connectButton) document.getElementById("connectButton").addEventListener("cl
                 localStorage.setItem("K_pub_SERVER", K_pub_SERVER.toString());
                 localStorage.setItem("K_pub_CLIENT", K_pub_CLIENT.toString());
                 // Chame a função de envio da chave pública
-                await enviarChavePublica(url1);
+                await enviarChavePublica(url);
                 // Calculo da chave secreta
                 const K_secret = modPow(K_pub_SERVER, K_priv_CLIENT_bigint, P);
-                var chaveConvertida = (0, _cryptoJsDefault.default).enc.Utf8.parse(K_secret);
+                var chaveConvertida = (0, _cryptoJsDefault.default).enc.Utf8.parse(K_secret.toString());
                 localStorage.setItem("K_secret", chaveConvertida);
                 console.log("Chave secreta calculada: " + K_secret.toString());
                 window.location.href = "connection.html";
@@ -776,8 +776,8 @@ function modPow(base, exp, mod) {
     }
     return res;
 }
-async function enviarChavePublica(url1) {
-    const response = await fetch(url1, {
+async function enviarChavePublica(url) {
+    const response = await fetch(url, {
         method: "POST",
         mode: "cors",
         headers: {
@@ -837,10 +837,17 @@ if (imageUpload && uploadButton) {
         const file = fileInput.files[0];
         const receiveImage = document.getElementById('receivedImage');
         const noImageMessage = document.getElementById('noImageMessage');
+        const K_SECRET_CLIENTE = localStorage.getItem("K_secret");
+        console.log("CLIENTE: K_secret LIDA (string):", K_SECRET_CLIENTE);
+        console.log("CLIENTE: Tipo de K_secret LIDA:", typeof K_SECRET_CLIENTE);
+        console.log("CLIENTE: Comprimento de K_secret LIDA:", K_SECRET_CLIENTE.length);
+        var dado_received = await enviarImagem(localStorage.getItem("localImage"), file.name);
+    /*
         if (file) {
             console.log('Imagem pronta para upload:', file.name, file.type);
-            var dado_received = await enviarImagem(localStorage.getItem("localImage"), file.name);
-        /*
+            
+            
+          
             // Decriptação do dado recebido
             image_base64 = decriptar(dado_received.image_secret);
 
@@ -853,8 +860,12 @@ if (imageUpload && uploadButton) {
             } else {
                 alert('O servidor não retornou uma imagem aleatória.');
             }
-            */ } else alert('Por favor, selecione uma imagem para enviar.');
-    });
+            
+
+        } else {
+            alert('Por favor, selecione uma imagem para enviar.');
+        }
+            */ });
 }
 function encodeImage(dataURL) {
     return dataURL.replace(/^data:image\/[a-z]+;base64,/, '');
@@ -862,9 +873,12 @@ function encodeImage(dataURL) {
 async function enviarImagem(imageBase64, fileName) {
     // Encriptar a mensagem e gerar resumo antes de enviar
     var dadoEncriptado = encriptar(imageBase64);
-    var hash = gerarHash(imageBase64);
+    var hash = gerarHash(dadoEncriptado);
+    console.log("Dado imagem: " + imageBase64);
+    console.log("Hash gerado: " + hash);
+    console.log("Dado encriptado: " + dadoEncriptado);
     // Montar URL
-    url = localStorage.getItem("urlServer") + "imagem";
+    var url = localStorage.getItem("urlServer") + "imagemTeste";
     // Fazendo a requisição 
     const response = await fetch(url, {
         method: "POST",
@@ -887,13 +901,13 @@ async function enviarImagem(imageBase64, fileName) {
     return response;
 }
 function encriptar(imageBase64) {
-    return (0, _cryptoJsDefault.default).AES.encrypt(imageBase64, localStorage.getItem("K_secret"));
+    return (0, _cryptoJsDefault.default).AES.encrypt(imageBase64, localStorage.getItem("K_secret").toString()).toString();
 }
 function decriptar(dadoEncriptado) {
-    return (0, _cryptoJsDefault.default).AES.decrypt(dadoEncriptado, localStorage.getItem("K_secret"));
+    return (0, _cryptoJsDefault.default).AES.decrypt(dadoEncriptado, localStorage.getItem("K_secret").toString()).toString();
 }
 function gerarHash(dadoEncriptado) {
-    return (0, _cryptoJsDefault.default).HmacSHA512(dadoEncriptado, localStorage.getItem("K_secret"));
+    return (0, _cryptoJsDefault.default).HmacSHA512(dadoEncriptado, localStorage.getItem("K_secret").toString()).toString();
 }
 
 },{"crypto-js":"fP1dW","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"fP1dW":[function(require,module,exports,__globalThis) {

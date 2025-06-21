@@ -89,7 +89,7 @@ if (connectButton) {
 
                     // Calculo da chave secreta
                     const K_secret = modPow(K_pub_SERVER, K_priv_CLIENT_bigint, P);
-                    var chaveConvertida = CryptoJS.enc.Utf8.parse(K_secret);
+                    var chaveConvertida = CryptoJS.enc.Utf8.parse(K_secret.toString());
                     localStorage.setItem("K_secret", chaveConvertida);
                     console.log("Chave secreta calculada: " + K_secret.toString());
 
@@ -195,12 +195,17 @@ if (imageUpload && uploadButton) {
         const file = fileInput.files[0];
         const receiveImage = document.getElementById('receivedImage');
         const noImageMessage = document.getElementById('noImageMessage');
-
+        const K_SECRET_CLIENTE = localStorage.getItem("K_secret");
+        console.log("CLIENTE: K_secret LIDA (string):", K_SECRET_CLIENTE);
+        console.log("CLIENTE: Tipo de K_secret LIDA:", typeof K_SECRET_CLIENTE);
+        console.log("CLIENTE: Comprimento de K_secret LIDA:", K_SECRET_CLIENTE.length);
+        var dado_received = await enviarImagem(localStorage.getItem("localImage"), file.name);
+        /*
         if (file) {
             console.log('Imagem pronta para upload:', file.name, file.type);
             
-            var dado_received = await enviarImagem(localStorage.getItem("localImage"), file.name);
-            /*
+            
+          
             // Decriptação do dado recebido
             image_base64 = decriptar(dado_received.image_secret);
 
@@ -213,11 +218,12 @@ if (imageUpload && uploadButton) {
             } else {
                 alert('O servidor não retornou uma imagem aleatória.');
             }
-            */
+            
 
         } else {
             alert('Por favor, selecione uma imagem para enviar.');
         }
+            */
     });
 }
 
@@ -229,12 +235,16 @@ function encodeImage(dataURL) {
 
 async function enviarImagem(imageBase64, fileName) {
     // Encriptar a mensagem e gerar resumo antes de enviar
+    
     var dadoEncriptado = encriptar(imageBase64);
-    var hash = gerarHash(imageBase64)
+    var hash = gerarHash(dadoEncriptado);
+    console.log("Dado imagem: " + imageBase64)
+    console.log("Hash gerado: " + hash);
+    console.log("Dado encriptado: " + dadoEncriptado);
 
     // Montar URL
-    url = localStorage.getItem("urlServer") + "imagem";
-    
+    var url = localStorage.getItem("urlServer") + "imagemTeste";
+
     // Fazendo a requisição 
     const response = await fetch(url, {
         method: "POST",
@@ -258,13 +268,13 @@ async function enviarImagem(imageBase64, fileName) {
 }
 
 function encriptar(imageBase64){
-    return CryptoJS.AES.encrypt(imageBase64, localStorage.getItem("K_secret"));
+    return CryptoJS.AES.encrypt(imageBase64, localStorage.getItem("K_secret").toString()).toString();
 }
 
 function decriptar(dadoEncriptado){
-    return CryptoJS.AES.decrypt(dadoEncriptado, localStorage.getItem("K_secret"));
+    return CryptoJS.AES.decrypt(dadoEncriptado, localStorage.getItem("K_secret").toString()).toString();
 }
 
 function gerarHash(dadoEncriptado){
-    return CryptoJS.HmacSHA512(dadoEncriptado, localStorage.getItem("K_secret"));
+    return CryptoJS.HmacSHA512(dadoEncriptado, localStorage.getItem("K_secret").toString()).toString();
 }
