@@ -54,3 +54,25 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+/* NOVAS CLASSES ADICIONADAS */
+.image-display {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.message-text {
+    text-align: center;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.display-block {
+    display: block;
+}

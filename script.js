@@ -21,7 +21,10 @@ if (!K_privada_cliente_str) {
         K_priv_CLIENT_bigint = BigInt(K_privada_cliente_str);
         console.log("Chave privada recuperada: " + K_privada_cliente_str);
     } catch (e) {
-        console.error("Erro ao converter K_priv_CLIENT do localStorage para BigInt:", e);
+        console.error(
+            "Erro ao converter K_priv_CLIENT do localStorage para BigInt:",
+            e
+        );
         // Se a string no localStorage estiver corrompida, gere uma nova
         console.log("Gerando nova chave privada devido a erro na recuperação.");
         const new_K_priv_CLIENT_num = getRndInteger(100000, 1000000);
@@ -41,12 +44,12 @@ document.getElementById("connectButton").addEventListener("click", async () => {
 
     try {
         // Requisição de conexão para o servidor, ao clicar o botão
-        const response = await fetch(url, { method: 'GET', mode: "cors" });
+        const response = await fetch(url, { method: "GET", mode: "cors" });
 
         let responseContent = "";
 
         // Verifica se houve um 200 OK
-        if (response.status === 200) { 
+        if (response.status === 200) {
             // Tratamento da resposta e obtenção do conteudo
             const contentType = response.headers.get("content-type");
 
@@ -54,7 +57,7 @@ document.getElementById("connectButton").addEventListener("click", async () => {
             if (contentType && contentType.includes("application/json")) {
                 // Obter os valores de P e G
                 const json = await response.json();
-            
+
                 const P = BigInt(json["P"]);
                 const G = BigInt(json["G"]);
                 const K_pub_SERVER = BigInt(json["K_pub"]);
@@ -65,18 +68,20 @@ document.getElementById("connectButton").addEventListener("click", async () => {
                 const K_pub_CLIENT = modPow(G, K_priv_CLIENT_bigint, P);
                 console.log("Chave pública definida: " + K_pub_CLIENT);
 
-                // Armazenando no localStorage 
+                // Armazenando no localStorage
                 localStorage.setItem("P", P.toString());
                 localStorage.setItem("G", G.toString());
                 localStorage.setItem("K_pub_SERVER", K_pub_SERVER.toString());
                 localStorage.setItem("K_pub_CLIENT", K_pub_CLIENT.toString());
 
                 // Chame a função de envio da chave pública
-                await enviarChavePublica(url);    
-                
-                // Calculo da chave secreta 
+                await enviarChavePublica(url);
+
+                // Calculo da chave secreta
                 const K_secret = modPow(K_pub_SERVER, K_priv_CLIENT_bigint, P);
                 console.log("Chave secreta calculada: " + K_secret.toString());
+
+                window.location.href = "connection.html";
             } else {
                 responseContent = `Status: ${response.status} ${response.statusText}\n\n`;
                 responseContent +=
@@ -98,7 +103,7 @@ document.getElementById("connectButton").addEventListener("click", async () => {
     }
 });
 
-// Função que otimiza o calculo para expoente 
+// Função que otimiza o calculo para expoente
 function modPow(base, exp, mod) {
     if (mod === 1n) return 0n;
     let res = 1n;
@@ -114,19 +119,63 @@ function modPow(base, exp, mod) {
     return res;
 }
 
-async function enviarChavePublica(url) {   
+async function enviarChavePublica(url) {
     const response = await fetch(url, {
-        method: "POST", 
-        mode: "cors", 
-        headers: {"Content-Type": "application/json"}, 
-        body: JSON.stringify({"K_pub": localStorage.getItem("K_pub_CLIENT")})}).then(response => {
-            if (response.status !== 200){
-                throw new Error(`Erro na requisição de envio de chave pública! status: ${response.status}`);
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ K_pub: localStorage.getItem("K_pub_CLIENT") }),
+    })
+        .then((response) => {
+            if (response.status !== 200) {
+                throw new Error(
+                    `Erro na requisição de envio de chave pública! status: ${response.status}`
+                );
             }
             return response.json();
-        }).catch(error => {
-            console.error('Erro: ' + error);
+        })
+        .catch((error) => {
+            console.error("Erro: " + error);
             window.alert(error);
         });
-    
 }
+
+document.getElementById('uploadButton').addEventListener('click', function () {
+    const fileInput = document.getElementById('imageUpload');
+    const file = fileInput.files[0];
+
+    if (file) {
+        // VERIFICAÇÃO JAVASCRIPT: Checa o tipo do arquivo
+        const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg']; // Mime types permitidos
+        if (!allowedTypes.includes(file.type)) {
+            alert('Por favor, selecione apenas arquivos PNG ou JPG.');
+            fileInput.value = ''; // Limpa o input para que o mesmo arquivo não seja tentado novamente
+            return; // Interrompe a execução
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            
+            
+            // document.getElementById('receivedImage').src = e.target.result;
+            // document.getElementById('noImageMessage').style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+    } else {
+        alert('Por favor, selecione uma imagem para enviar.');
+    }
+});
+
+// Exemplo de como você poderia exibir uma imagem recebida (simulado)
+function displayReceivedImage(imageUrl) {
+    const receivedImageElement = document.getElementById('receivedImage');
+    const noImageMessage = document.getElementById('noImageMessage');
+    receivedImageElement.src = imageUrl;
+    receivedImageElement.style.display = 'block';
+    noImageMessage.style.display = 'none';
+}
+
+// Exemplo de uso (descomente para testar com uma imagem de placeholder)
+// window.onload = () => {
+//    displayReceivedImage('https://via.placeholder.com/400x300?text=Imagem+Recebida');
+// };

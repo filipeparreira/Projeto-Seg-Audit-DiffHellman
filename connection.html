@@ -3,10 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diffie-Hellman Keys</title>
+    <title>Envio e Visualização de Imagens</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div class="container">
+        <h1>Diffie-Hellman - Troca de Imagens</h1>
+
+        <div class="form-group">
+            <label for="imageUpload">Enviar Imagem:</label>
+            <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/jpg">
+            <button id="uploadButton">Upload Imagem</button>
+        </div>
+
+        <div class="form-group">
+            <label>Pré-visualização da Imagem a Enviar:</label>
+            <img id="previewImage" src="" alt="Pré-visualização" class="image-display hidden">
+            <p id="noPreviewMessage" class="message-text">Nenhuma imagem selecionada para pré-visualização.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="receivedImage">Imagem Recebida:</label>
+            <img id="receivedImage" src="" alt="Imagem Recebida" class="image-display display-block">
+            <p id="noImageMessage" class="message-text">Nenhuma imagem recebida ainda.</p>
+        </div>
+    </div>
 </body>
 </html>
