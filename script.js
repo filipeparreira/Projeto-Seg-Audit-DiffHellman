@@ -72,7 +72,11 @@ document.getElementById("connectButton").addEventListener("click", async () => {
                 localStorage.setItem("K_pub_CLIENT", K_pub_CLIENT.toString());
 
                 // Chame a função de envio da chave pública
-                await enviarChavePublica(url);                                                
+                await enviarChavePublica(url);    
+                
+                // Calculo da chave secreta 
+                const K_secret = modPow(K_pub_SERVER, K_priv_CLIENT_bigint, P);
+                console.log("Chave secreta calculada: " + K_secret.toString());
             } else {
                 responseContent = `Status: ${response.status} ${response.statusText}\n\n`;
                 responseContent +=
@@ -94,7 +98,7 @@ document.getElementById("connectButton").addEventListener("click", async () => {
     }
 });
 
-// Calculo da chave publica 
+// Função que otimiza o calculo para expoente 
 function modPow(base, exp, mod) {
     if (mod === 1n) return 0n;
     let res = 1n;
@@ -121,8 +125,8 @@ async function enviarChavePublica(url) {
             }
             return response.json();
         }).catch(error => {
-            console.error('Erro: ' + error)
-            window.alert(error)
-        })
+            console.error('Erro: ' + error);
+            window.alert(error);
+        });
     
 }

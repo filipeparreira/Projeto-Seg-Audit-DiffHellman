@@ -12,11 +12,14 @@ P = randint(100000, 1000000)
 G = randint(100000, 1000000)
 
 # Calculo da chave publica do servidor 
-K_publica_server = (G**K_privada_server) % P
+K_publica_server = pow(G, K_privada_server, P)
 
 print(f"P e G escolhidos:\n\tP: {P}\n\tG: {G}")
 print(f"Chave privada definida: {K_privada_server}")
 print(f"Chave pública definida: {K_publica_server}")
+
+def calcular_K_secret(K_pub_CLIENTE):
+    return pow(int(K_pub_CLIENTE), K_privada_server, P)
 
 @app.route("/connect", methods= ['GET', 'POST'])
 def conexao():
@@ -26,5 +29,5 @@ def conexao():
     elif (request.method == 'POST'):
         K_pub_CLIENTE = request.json.get('K_pub')
         print(f"Chave publica recebida do cliente: {K_pub_CLIENTE}")
-        
+        print(f"Chave secreta calculada: {calcular_K_secret(K_pub_CLIENTE)}")
         return jsonify({"status": "sucesso", "mensagem": "Requisição processada com sucesso!","codigo": 200})
