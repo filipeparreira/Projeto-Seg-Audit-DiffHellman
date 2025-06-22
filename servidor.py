@@ -6,6 +6,8 @@ import random
 import base64
 import hmac, hashlib
 from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad, pad
+from Crypto.Random import get_random_bytes
 
 
 app = Flask(__name__)
@@ -76,16 +78,12 @@ def imagem():
     # Verificar com o hash recebido 
     hash = gerarHash(data['image_secret'])
     hash_recebido = data['hash']
-    
-    if hash == hash_recebido: 
+    if hash != hash_recebido: 
         # Se não bater, retornar 400 com mensagem de erro 
         return jsonify({"error": "A verificação de hash falhou, os dados foram alterados por um intermediário."}), 400
     
     # Decodificar o image_secret com a chave secreta    
-    # base64_string = image_secret_decoded
-    
-    
-    base64_string = data['image_base64']
+    base64_string = decriptar_dado(data['image_secret'], data['iv'])
     filename_saved = None
     
     try:
@@ -123,13 +121,14 @@ def imagem():
         with open(random_image_filepath, 'rb') as f:
             random_image_bytes = f.read()
 
-        # Codifica a imagem
-        random_image_base64 = base64.b64encode(random_image_bytes).decode('utf-8')
+        # Encriptando a mensagem 
+        random_image_encriptado_base64, iv_base64 = encriptar_dado(random_image_bytes)
         
         print(f"Retornando imagem aleatória: {random_image_filename}")
         return jsonify({
             "message": "Imagem recebida e salva com sucesso! Uma imagem aleatória foi retornada.",
-            "image_base64": random_image_base64,
+            "image_base64": random_image_encriptado_base64,
+            "iv": iv_base64,
             "filetype": get_type(random_image_filename)
         }), 200
     except Exception as e:
@@ -173,39 +172,21 @@ def decriptar_dado(dado_cifrado, iv):
     iv = base64.b64decode(iv)
     dado_cifrado = base64.b64decode(dado_cifrado)
     
-    cipher = AES.new()
+    cipher = AES.new(K_SECRET_32BITS, AES.MODE_CBC, iv)
+    return unpad(cipher.decrypt(dado_cifrado), AES.block_size).decode('utf-8')
     
-
-@app.route("/imagemTeste", methods= ['POST'])
-def imagemTeste():
-    # Verifica se é JSON 
-    if not request.is_json:
-        return jsonify({"error": "Content-Type deve ser application/json"}), 400
+def encriptar_dado(dado):
+    # Gerando o vetor de inicialização aleatório 
+    iv = get_random_bytes(16)
     
-    # Verifica se possui o campo image_secret que armazena a imagem codificada e encriptada
-    data = request.get_json()
-    if 'image_secret' not in data:
-        return jsonify({"error": "Chave 'image_secret' não encontrada no JSON"}), 400
+    # Encriptando
+    cipher = AES.new(K_SECRET_32BITS, AES.MODE_CBC, iv)
+    padding = pad(dado, AES.block_size)
     
-    # Gerar o hash de image_secret
-    if not K_SECRET_32BITS:
-        return jsonify({"error": "A troca de chaves ainda não ocorreu."}), 400
+    # É necessário converter os dados para base64 para envio 
+    dado_encriptado = base64.b64encode(cipher.encrypt(padding)).decode('utf-8')
+    iv = base64.b64encode(iv).decode('utf-8')
     
-    print(f"Hash GERADO: {gerarHash(data['image_secret'])}")
-    print(f"Hash RECEBIDO: {data['hash']}")
+    return dado_encriptado, iv
     
-    return jsonify({"status": "sucesso", "mensagem": "Requisição processada com sucesso!","codigo": 200})
-
-@app.route("/testeHash", methods= ['POST'])
-def testeHASH():
-    print(f"Chave secreta hash: {K_SECRET_32BITS.hex()}")
-    
-    data = request.get_json()    
-    hash = gerarHash(data['data_secret'])
-    print(f"Hash servidor: {hash}")
-    
-    print(f"Chave secreta hash cliente: {data['key_secret_hash_client']}")
-    print(f"Hash cliente: {data['hash_client']}")
-    
-    return jsonify({"status": "sucesso", "mensagem": "Requisição processada com sucesso!","codigo": 200})
     

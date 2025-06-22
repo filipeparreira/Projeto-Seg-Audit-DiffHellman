@@ -195,19 +195,18 @@ if (imageUpload && uploadButton) {
         const receiveImage = document.getElementById('receivedImage');
         const noImageMessage = document.getElementById('noImageMessage');
         
-        await testeHash(localStorage.getItem("localImage"));
-
-        //var dado_received = await enviarImagem(localStorage.getItem("localImage"), file.name);
-        /*
+        var dado_received = await enviarImagem(localStorage.getItem("localImage"), file.name);
+    
         if (file) {
             console.log('Imagem pronta para upload:', file.name, file.type);
             
             
           
             // Decriptação do dado recebido
-            image_base64 = decriptar(dado_received.image_secret);
-
-
+            
+            var image_base64 = decriptar(dado_received.image_base64, dado_received.iv);
+            
+            
             if (image_base64){
                 receiveImage.src = `data:${dado_received.filetype};base64,${image_base64}`;
                 receiveImage.style.display = 'block';
@@ -221,7 +220,7 @@ if (imageUpload && uploadButton) {
         } else {
             alert('Por favor, selecione uma imagem para enviar.');
         }
-            */
+            
     });
 }
 
@@ -238,7 +237,7 @@ async function enviarImagem(imageBase64, fileName) {
     var hash = gerarHash(dadosEncriptados.dadoEncBase64);
     
     // Montar URL
-    var url = localStorage.getItem("urlServer") + "imagemTeste";
+    var url = localStorage.getItem("urlServer") + "imagem";
 
     // Fazendo a requisição 
     const response = await fetch(url, {
@@ -275,8 +274,14 @@ function encriptar(imageBase64){
     return {dadoEncBase64, ivBase64};
 }
 
-function decriptar(dadoEncriptado){
-    return CryptoJS.AES.decrypt(dadoEncriptado, key32BITS()).toString();
+function decriptar(dadoEncriptadoBase64, ivBase64){
+    // Tratar os dados Base64 que chegaram
+    
+    const iv = CryptoJS.enc.Base64.parse(ivBase64);
+
+    const dadoDecriptado = CryptoJS.AES.decrypt(dadoEncriptadoBase64, key32BITS(), {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7});
+    // Retornando o dado convertido para base64
+    return CryptoJS.enc.Base64.stringify(dadoDecriptado);
 }
 
 function gerarHash(dadoEncriptado){
@@ -300,7 +305,7 @@ async function testeHash(imageBase64) {
         method: "POST",
         mode: "cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({key_secret_hash_client: kSecretHashHex, data_secret: dataSecret.dadoEncBase64, hash_client: hash}),
+        body: JSON.stringify({key_secret_hash_client: kSecretHashHex, data_secret: dataSecret.dadoEncBase64, hash_client: hash, iv: dataSecret.ivBase64}),
     })
         .then((response) => {
             if (response.status !== 200) {
