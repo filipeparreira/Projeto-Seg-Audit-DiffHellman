@@ -5,6 +5,7 @@ import os
 import random 
 import base64
 import hmac, hashlib
+from Crypto.Cipher import AES
 
 
 app = Flask(__name__)
@@ -28,7 +29,7 @@ G = randint(100000, 1000000)
 # Calculo da chave publica do servidor 
 K_publica_server = pow(G, K_privada_server, P)
 
-K_SECRET = None
+K_SECRET_32BITS = None
 
 print(f"P e G escolhidos:\n\tP: {P}\n\tG: {G}")
 print(f"Chave privada definida: {K_privada_server}")
@@ -39,7 +40,7 @@ def calcular_K_secret(K_pub_CLIENTE):
 
 @app.route("/connect", methods= ['GET', 'POST'])
 def conexao():
-    global K_SECRET
+    global K_SECRET_32BITS
     if (request.method == 'GET'):   
         resposta = {"P":P, "G":G, "K_pub": K_publica_server}
         return jsonify(resposta)
@@ -47,8 +48,9 @@ def conexao():
         K_pub_CLIENTE = request.json.get('K_pub')
         print(f"Chave publica recebida do cliente: {K_pub_CLIENTE}")
         
-        K_SECRET = calcular_K_secret(K_pub_CLIENTE)
-        print(f"Chave secreta calculada: {K_SECRET}")
+        k_secret = calcular_K_secret(K_pub_CLIENTE)
+        K_SECRET_32BITS = parser_key_32bits(k_secret)
+        print(f"Chave secreta calculada: {k_secret}")
         return jsonify({"status": "sucesso", "mensagem": "Requisição processada com sucesso!","codigo": 200})
 
 
@@ -66,17 +68,20 @@ def imagem():
         return jsonify({"error": "Chave 'image_secret' não encontrada no JSON"}), 400
     
     # Gerar o hash de image_secret
-    if not K_SECRET:
+    if not K_SECRET_32BITS:
         return jsonify({"error": "A troca de chaves ainda não ocorreu."}), 400
     
     
     
     # Verificar com o hash recebido 
+    hash = gerarHash(data['image_secret'])
+    hash_recebido = data['hash']
     
+    if hash == hash_recebido: 
         # Se não bater, retornar 400 com mensagem de erro 
+        return jsonify({"error": "A verificação de hash falhou, os dados foram alterados por um intermediário."}), 400
     
-    # Decodificar o image_secret com a chave secreta
-    
+    # Decodificar o image_secret com a chave secreta    
     # base64_string = image_secret_decoded
     
     
@@ -157,10 +162,19 @@ def get_type(nome_arquivo):
     
 def gerarHash(dado):
     dado = dado.encode('utf-8')
-    K_SECRET_string = str(K_SECRET).encode('utf-8')
-    print(f"K_SECRET UTF8: {K_SECRET_string}")
-    h = hmac.new(K_SECRET_string, dado, hashlib.sha512)
+    h = hmac.new(K_SECRET_32BITS, dado, hashlib.sha512)
     return h.hexdigest()
+
+def parser_key_32bits(key):
+    return hashlib.sha256(str(key).encode('utf-8')).digest()
+
+def decriptar_dado(dado_cifrado, iv):
+    # Decodificando os dados recebidos 
+    iv = base64.b64decode(iv)
+    dado_cifrado = base64.b64decode(dado_cifrado)
+    
+    cipher = AES.new()
+    
 
 @app.route("/imagemTeste", methods= ['POST'])
 def imagemTeste():
@@ -174,18 +188,24 @@ def imagemTeste():
         return jsonify({"error": "Chave 'image_secret' não encontrada no JSON"}), 400
     
     # Gerar o hash de image_secret
-    print(f"Chave secreta: {K_SECRET}")
-    if not K_SECRET:
+    if not K_SECRET_32BITS:
         return jsonify({"error": "A troca de chaves ainda não ocorreu."}), 400
     
     print(f"Hash GERADO: {gerarHash(data['image_secret'])}")
     print(f"Hash RECEBIDO: {data['hash']}")
     
     return jsonify({"status": "sucesso", "mensagem": "Requisição processada com sucesso!","codigo": 200})
-    # Verificar com o hash recebido 
+
+@app.route("/testeHash", methods= ['POST'])
+def testeHASH():
+    print(f"Chave secreta hash: {K_SECRET_32BITS.hex()}")
     
-        # Se não bater, retornar 400 com mensagem de erro 
+    data = request.get_json()    
+    hash = gerarHash(data['data_secret'])
+    print(f"Hash servidor: {hash}")
     
-    # Decodificar o image_secret com a chave secreta
+    print(f"Chave secreta hash cliente: {data['key_secret_hash_client']}")
+    print(f"Hash cliente: {data['hash_client']}")
     
-    # base64_string = image_secret_decoded
+    return jsonify({"status": "sucesso", "mensagem": "Requisição processada com sucesso!","codigo": 200})
+    
