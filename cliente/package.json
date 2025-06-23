@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Projeto para disciplina de Segurança e Auditoria de Sistemas. Este projeto visa demonstrar o funcionamento básico da troca de chaves simétricas utilizando Diffie-Hellman.",
   "scripts": {
-    "start": "parcel index.html connection.html",
+    "start": "parcel index.html connection.html -p 8080",
     "build": "parcel build index.html connection.html"
   },
   "repository": {
