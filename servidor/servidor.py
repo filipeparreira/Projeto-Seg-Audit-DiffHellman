@@ -12,6 +12,7 @@ from Crypto.Random import get_random_bytes
 
 app = Flask(__name__)
 CORS(app)
+app.run(host='0.0.0.0', port=5000)
 
 # Cria a pasta de base de dados para as imagens
 DB_FOLDER = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'db_images')
