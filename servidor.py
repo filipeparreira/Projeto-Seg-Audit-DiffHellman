@@ -28,31 +28,37 @@ K_privada_server = randint(100000, 1000000)
 P = randint(100000, 1000000)
 G = randint(100000, 1000000)
 
-# Calculo da chave publica do servidor 
+#---------------------- Calculo da chave publica -----------------------------
 K_publica_server = pow(G, K_privada_server, P)
 
+# Inicializa a variável global que representa a chave secreta em 32 bits
 K_SECRET_32BITS = None
 
 print(f"P e G escolhidos:\n\tP: {P}\n\tG: {G}")
 print(f"Chave privada definida: {K_privada_server}")
 print(f"Chave pública definida: {K_publica_server}")
 
+#---------------------- Calculo da chave secreta ------------------------------
 def calcular_K_secret(K_pub_CLIENTE):
     return pow(int(K_pub_CLIENTE), K_privada_server, P)
 
 @app.route("/connect", methods= ['GET', 'POST'])
 def conexao():
     global K_SECRET_32BITS
+    # Se GET, o cliente solicita as informações do servidor 
     if (request.method == 'GET'):   
         resposta = {"P":P, "G":G, "K_pub": K_publica_server}
         return jsonify(resposta)
+    # Se POST, o cliente manda sua chave publica 
     elif (request.method == 'POST'):
         K_pub_CLIENTE = request.json.get('K_pub')
         print(f"Chave publica recebida do cliente: {K_pub_CLIENTE}")
         
+        # Chamada da função para realizar os calculos
         k_secret = calcular_K_secret(K_pub_CLIENTE)
         K_SECRET_32BITS = parser_key_32bits(k_secret)
         print(f"Chave secreta calculada: {k_secret}")
+        
         return jsonify({"status": "sucesso", "mensagem": "Requisição processada com sucesso!","codigo": 200})
 
 
@@ -76,6 +82,7 @@ def imagem():
     
     
     # Verificar com o hash recebido 
+    #----------------------------- Gerando o hash da mensagem recebida p/ verificação ------------------------
     hash = gerarHash(data['image_secret'])
     hash_recebido = data['hash']
     if hash != hash_recebido: 
@@ -83,7 +90,9 @@ def imagem():
         return jsonify({"error": "A verificação de hash falhou, os dados foram alterados por um intermediário."}), 400
     
     # Decodificar o image_secret com a chave secreta    
+    #----------------------------- Decriptação dos dados apos a verificação dos hash -------------------------
     base64_string = decriptar_dado(data['image_secret'], data['iv'])
+    
     filename_saved = None
     
     try:
@@ -122,9 +131,12 @@ def imagem():
             random_image_bytes = f.read()
 
         # Encriptando a mensagem 
+        # ---------------------------------------- Encriptação do dado de resposta --------------------------------
         random_image_encriptado_base64, iv_base64 = encriptar_dado(random_image_bytes)
         
         print(f"Retornando imagem aleatória: {random_image_filename}")
+        
+        # Montando a resposta 
         return jsonify({
             "message": "Imagem recebida e salva com sucesso! Uma imagem aleatória foi retornada.",
             "image_base64": random_image_encriptado_base64,
@@ -158,15 +170,18 @@ def get_type(nome_arquivo):
         return extensoes_para_mime.get(extensao, 'application/octet-stream')
     else:
         return 'application/octet-stream'
-    
+
+# Função que gera o hash 
 def gerarHash(dado):
     dado = dado.encode('utf-8')
     h = hmac.new(K_SECRET_32BITS, dado, hashlib.sha512)
     return h.hexdigest()
 
+# Transforma a chave inteira em uma sequencia de bytes 
 def parser_key_32bits(key):
     return hashlib.sha256(str(key).encode('utf-8')).digest()
 
+# Decripta os dados utilizando o AES 
 def decriptar_dado(dado_cifrado, iv):
     # Decodificando os dados recebidos 
     iv = base64.b64decode(iv)
@@ -174,7 +189,8 @@ def decriptar_dado(dado_cifrado, iv):
     
     cipher = AES.new(K_SECRET_32BITS, AES.MODE_CBC, iv)
     return unpad(cipher.decrypt(dado_cifrado), AES.block_size).decode('utf-8')
-    
+
+# Encripta os dados utilizando o AES 
 def encriptar_dado(dado):
     # Gerando o vetor de inicialização aleatório 
     iv = get_random_bytes(16)

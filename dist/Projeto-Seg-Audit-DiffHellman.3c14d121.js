@@ -667,17 +667,18 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"kTBnD":[function(require,module,exports,__globalThis) {
+// Import do CryptoJS
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _cryptoJs = require("crypto-js");
 var _cryptoJsDefault = parcelHelpers.interopDefault(_cryptoJs);
-// Import do CryptoJS
 // Gera um número aleatório (inicialmente um Number)
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
-// Tenta obter a chave privada do localStorage
+// Obtem a variável localmente
 let K_privada_cliente_str = localStorage.getItem("K_priv_CLIENT");
 let K_priv_CLIENT_bigint; // Variável para armazenar a chave privada como BigInt
+//------------------------------- Gerando chave privada -------------------------------
 if (!K_privada_cliente_str) {
     // Se não existir, gera uma nova chave (como Number)
     const new_K_priv_CLIENT_num = getRndInteger(100000, 1000000);
@@ -725,6 +726,7 @@ if (connectButton) document.getElementById("connectButton").addEventListener("cl
             if (contentType && contentType.includes("application/json")) {
                 // Obter os valores de P e G
                 const json = await response.json();
+                //------------------------------ Calculo da chave publica ---------------------------------------
                 const P = BigInt(json["P"]);
                 const G = BigInt(json["G"]);
                 const K_pub_SERVER = BigInt(json["K_pub"]);
@@ -739,6 +741,7 @@ if (connectButton) document.getElementById("connectButton").addEventListener("cl
                 localStorage.setItem("K_pub_CLIENT", K_pub_CLIENT.toString());
                 // Chame a função de envio da chave pública
                 await enviarChavePublica(url);
+                //------------------------------ Calculo da chave secreta ---------------------------------------
                 // Calculo da chave secreta e a armazena
                 const K_secret = modPow(K_pub_SERVER, K_priv_CLIENT_bigint, P);
                 localStorage.setItem("K_secret", K_secret);
@@ -839,6 +842,7 @@ if (imageUpload && uploadButton) {
         var dado_received = await enviarImagem(localStorage.getItem("localImage"), file.name);
         if (file) {
             console.log('Imagem pronta para upload:', file.name, file.type);
+            //---------------------------------------- Decriptando os dados recebidos -----------------------------------------
             // Decriptação do dado recebido
             var image_base64 = decriptar(dado_received.image_base64, dado_received.iv);
             if (image_base64) {
@@ -854,6 +858,7 @@ function encodeImage(dataURL) {
     return dataURL.replace(/^data:image\/[a-z]+;base64,/, '');
 }
 async function enviarImagem(imageBase64, fileName) {
+    //------------------------------------- Encriptando o dado e gerando seu hash --------------------------------------
     // Encriptar a mensagem e gerar resumo antes de enviar
     var dadosEncriptados = encriptar(imageBase64);
     var hash = gerarHash(dadosEncriptados.dadoEncBase64);
@@ -918,31 +923,6 @@ function gerarHash(dadoEncriptado) {
 function key32BITS() {
     const kSecret = localStorage.getItem("K_secret");
     return (0, _cryptoJsDefault.default).SHA256((0, _cryptoJsDefault.default).enc.Utf8.parse(kSecret));
-}
-async function testeHash(imageBase64) {
-    const dataSecret = encriptar(imageBase64);
-    const hash = gerarHash(dataSecret.dadoEncBase64);
-    const kSecretHashHex = (0, _cryptoJsDefault.default).enc.Hex.stringify(key32BITS());
-    const url = localStorage.getItem("urlServer") + "testeHash";
-    const response = await fetch(url, {
-        method: "POST",
-        mode: "cors",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            key_secret_hash_client: kSecretHashHex,
-            data_secret: dataSecret.dadoEncBase64,
-            hash_client: hash,
-            iv: dataSecret.ivBase64
-        })
-    }).then((response)=>{
-        if (response.status !== 200) throw new Error(`Erro na requisi\xe7\xe3o de envio da imagem! status: ${response.status}`);
-        return response.json();
-    }).catch((error)=>{
-        console.error("Erro: " + error);
-        window.alert(error);
-    });
 }
 
 },{"crypto-js":"fP1dW","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"fP1dW":[function(require,module,exports,__globalThis) {

@@ -2,8 +2,8 @@
 126/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/index.html1750532489630794993 0
 151/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/images-client/cachorro_aparelho.jpg1750513747293114889 0
 143/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/images-client/cachorro.jpeg1750514058435423356 0
-162/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/dist/Projeto-Seg-Audit-DiffHellman.3c14d121.js1750628696018193719 0
-120/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/dist1750628696023193742 1
+162/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/dist/Projeto-Seg-Audit-DiffHellman.3c14d121.js1750637113718975947 0
+120/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/dist1750637113738976037 1
 123/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/LICENSE1750204977982231780 0
 158/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/nullthrows/nullthrows.js.flow1750531917041079038 0
 147/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/nullthrows/LICENSE1750531916216075101 0
@@ -282,7 +282,7 @@
 160/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@parcel/core/test/test-utils.js1750531926922126196 0
 177/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@parcel/core/test/requests/ConfigRequest.test.js1750531924644115324 0
 177/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@parcel/core/test/requests/DevDepRequest.test.js1750531925108117538 0
-127/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/servidor.py1750627827769194479 0
+127/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/servidor.py1750637102567925518 0
 172/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@parcel/core/test/SymbolPropagation.test.js1750531926657124931 0
 194/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@parcel/core/test/fixtures/library-custom-scopehoist/package.json1750531927749130143 0
 181/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@parcel/core/test/fixtures/library-custom-scopehoist1750531927739130095 1
@@ -1715,7 +1715,7 @@
 192/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/lmdb/dependencies/lmdb-data-v1/libraries/liblmdb/sample-mdb.txt1750531926724125251 0
 160/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/data/regions/BW.js1750531924136112899 0
 157/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@parcel/types/lib/index.d.ts1750531916964078670 0
-139/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/db_images/cachorro.jpeg1750628716210286684 0
+139/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/db_images/cachorro.jpeg1750637133130063731 0
 157/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@parcel/logger/lib/Logger.js1750531919028088521 0
 152/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/commander/lib/option.js1750531920621096124 0
 170/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@parcel/packager-wasm/lib/WasmPackager.js1750531918599086474 0
@@ -2564,7 +2564,7 @@
 160/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/data/regions/MN.js1750531929096136571 0
 169/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@swc/helpers/_/_class_private_method_set1750531926983126487 1
 160/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/data/regions/PL.js1750531929985140814 0
-127/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/__pycache__1750627831024209610 1
+127/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/__pycache__1750637114736980551 1
 174/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@swc/helpers/_/_class_apply_descriptor_update1750531926479124081 1
 160/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@swc/helpers/_/_define_property1750531927669129761 1
 165/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@swc/helpers/_/_type_of/package.json1750531928299132767 0
@@ -2807,7 +2807,7 @@
 161/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@mischnic/json-sourcemap/LICENSE1750531916085074475 0
 146/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/dist1750531930330142461 1
 150/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/dist/lib1750531930358142594 1
-166/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/dist/Projeto-Seg-Audit-DiffHellman.3c14d121.js.map1750628696021193733 0
+166/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/dist/Projeto-Seg-Audit-DiffHellman.3c14d121.js.map1750637113737976033 0
 180/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/lmdb/dependencies/lmdb/libraries/liblmdb/mdb_copy.11750531921693101240 0
 163/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/dist/lib/supported.js1750531930361142609 0
 165/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/dist/unpacker/region.js1750531930105141387 0
@@ -3303,7 +3303,7 @@
 182/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/data/features/css-backgroundblendmode.js1750531925791120798 0
 169/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/data/features/pdf-viewer.js1750531929914140475 0
 175/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/data/features/wasm-multi-value.js1750531930649143983 0
-125/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/script.js1750628695806192744 0
+125/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/script.js1750636601377658930 0
 172/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/data/features/css-gradients.js1750531926161122564 0
 174/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/data/features/referrer-policy.js1750531930100141363 0
 177/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/data/features/picture-in-picture.js1750531929953140661 0
@@ -3493,7 +3493,7 @@
 160/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/data/regions/FO.js1750531927824130500 0
 160/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/data/regions/CR.js1750531925466119247 0
 184/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@swc/helpers/cjs/_class_check_private_static_access.cjs1750531918361085338 0
-152/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/__pycache__/servidor.cpython-310.pyc1750627831024209610 0
+152/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/__pycache__/servidor.cpython-310.pyc1750637114736980551 0
 160/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/caniuse-lite/data/regions/US.js1750531930579143649 0
 152/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@parcel/rust/index.d.ts1750531918774087309 0
 151/home/filipeaugusto/Documentos/Faculdade/Sétimo-Periodo/Seguranca-Auditoria-Sistemas/Projeto-Seg-Audit-DiffHellman/node_modules/@parcel/runtime-js/src1750531922186103593 1

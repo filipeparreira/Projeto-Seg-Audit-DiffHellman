@@ -1,16 +1,16 @@
-import CryptoJS from 'crypto-js';
 // Import do CryptoJS
-
+import CryptoJS from 'crypto-js';
 
 // Gera um número aleatório (inicialmente um Number)
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-// Tenta obter a chave privada do localStorage
+// Obtem a variável localmente
 let K_privada_cliente_str = localStorage.getItem("K_priv_CLIENT");
 let K_priv_CLIENT_bigint; // Variável para armazenar a chave privada como BigInt
 
+//------------------------------- Gerando chave privada -------------------------------
 if (!K_privada_cliente_str) {
     // Se não existir, gera uma nova chave (como Number)
     const new_K_priv_CLIENT_num = getRndInteger(100000, 1000000);
@@ -67,7 +67,7 @@ if (connectButton) {
                 if (contentType && contentType.includes("application/json")) {
                     // Obter os valores de P e G
                     const json = await response.json();
-
+                    //------------------------------ Calculo da chave publica ---------------------------------------
                     const P = BigInt(json["P"]);
                     const G = BigInt(json["G"]);
                     const K_pub_SERVER = BigInt(json["K_pub"]);
@@ -86,7 +86,7 @@ if (connectButton) {
 
                     // Chame a função de envio da chave pública
                     await enviarChavePublica(url);
-
+                    //------------------------------ Calculo da chave secreta ---------------------------------------
                     // Calculo da chave secreta e a armazena
                     const K_secret = modPow(K_pub_SERVER, K_priv_CLIENT_bigint, P);
                     localStorage.setItem("K_secret", K_secret);
@@ -194,20 +194,16 @@ if (imageUpload && uploadButton) {
         const file = fileInput.files[0];
         const receiveImage = document.getElementById('receivedImage');
         const noImageMessage = document.getElementById('noImageMessage');
-        
+
         var dado_received = await enviarImagem(localStorage.getItem("localImage"), file.name);
-    
+
         if (file) {
             console.log('Imagem pronta para upload:', file.name, file.type);
-            
-            
-          
+            //---------------------------------------- Decriptando os dados recebidos -----------------------------------------
             // Decriptação do dado recebido
-            
             var image_base64 = decriptar(dado_received.image_base64, dado_received.iv);
-            
-            
-            if (image_base64){
+
+            if (image_base64) {
                 receiveImage.src = `data:${dado_received.filetype};base64,${image_base64}`;
                 receiveImage.style.display = 'block';
                 receiveImage.classList.remove('hidden');
@@ -215,12 +211,9 @@ if (imageUpload && uploadButton) {
             } else {
                 alert('O servidor não retornou uma imagem aleatória.');
             }
-            
-
         } else {
             alert('Por favor, selecione uma imagem para enviar.');
         }
-            
     });
 }
 
@@ -231,11 +224,11 @@ function encodeImage(dataURL) {
 
 
 async function enviarImagem(imageBase64, fileName) {
+    //------------------------------------- Encriptando o dado e gerando seu hash --------------------------------------
     // Encriptar a mensagem e gerar resumo antes de enviar
-    
     var dadosEncriptados = encriptar(imageBase64);
     var hash = gerarHash(dadosEncriptados.dadoEncBase64);
-    
+
     // Montar URL
     var url = localStorage.getItem("urlServer") + "imagem";
 
@@ -244,7 +237,7 @@ async function enviarImagem(imageBase64, fileName) {
         method: "POST",
         mode: "cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ image_secret: dadosEncriptados.dadoEncBase64, filename: fileName, hash: hash, iv: dadosEncriptados.ivBase64}),
+        body: JSON.stringify({ image_secret: dadosEncriptados.dadoEncBase64, filename: fileName, hash: hash, iv: dadosEncriptados.ivBase64 }),
     })
         .then((response) => {
             if (response.status !== 200) {
@@ -261,62 +254,37 @@ async function enviarImagem(imageBase64, fileName) {
     return response;
 }
 
-function encriptar(imageBase64){
+function encriptar(imageBase64) {
     // Gera uma IV aleatoria para passar para o servidor, possibilitando a decriptação
     const iv = CryptoJS.lib.WordArray.random(16);
-    const dadoEncriptado = CryptoJS.AES.encrypt(imageBase64, key32BITS(), {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7});
+    const dadoEncriptado = CryptoJS.AES.encrypt(imageBase64, key32BITS(), { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
 
     // Converte tudo para Base64 para que o servidor trabalhe com o tipo correto sem necessidade de conversão
     //  o dadoEncriptado já é retornado em Base64
     const ivBase64 = CryptoJS.enc.Base64.stringify(iv);
     const dadoEncBase64 = dadoEncriptado.toString();
 
-    return {dadoEncBase64, ivBase64};
+    return { dadoEncBase64, ivBase64 };
 }
 
-function decriptar(dadoEncriptadoBase64, ivBase64){
+function decriptar(dadoEncriptadoBase64, ivBase64) {
     // Tratar os dados Base64 que chegaram
-    
     const iv = CryptoJS.enc.Base64.parse(ivBase64);
 
-    const dadoDecriptado = CryptoJS.AES.decrypt(dadoEncriptadoBase64, key32BITS(), {iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7});
+    const dadoDecriptado = CryptoJS.AES.decrypt(dadoEncriptadoBase64, key32BITS(), { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+
     // Retornando o dado convertido para base64
     return CryptoJS.enc.Base64.stringify(dadoDecriptado);
 }
 
-function gerarHash(dadoEncriptado){
+function gerarHash(dadoEncriptado) {
     // Para igualar ao método utilizado em python, conterte-se o dadoEncriptado para utf-8
     dadoEncriptado = CryptoJS.enc.Utf8.parse(dadoEncriptado);
     return CryptoJS.HmacSHA512(dadoEncriptado, key32BITS()).toString();
 }
 
 // Retorna a chave em hash (32 BITS) no formato hexadecimal em word array
-function key32BITS(){
+function key32BITS() {
     const kSecret = localStorage.getItem("K_secret");
     return CryptoJS.SHA256(CryptoJS.enc.Utf8.parse(kSecret));
-}
-
-async function testeHash(imageBase64) {
-    const dataSecret = encriptar(imageBase64);
-    const hash = gerarHash(dataSecret.dadoEncBase64);
-    const kSecretHashHex = CryptoJS.enc.Hex.stringify(key32BITS());
-    const url = localStorage.getItem("urlServer") + "testeHash";
-    const response = await fetch(url, {
-        method: "POST",
-        mode: "cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({key_secret_hash_client: kSecretHashHex, data_secret: dataSecret.dadoEncBase64, hash_client: hash, iv: dataSecret.ivBase64}),
-    })
-        .then((response) => {
-            if (response.status !== 200) {
-                throw new Error(
-                    `Erro na requisição de envio da imagem! status: ${response.status}`
-                );
-            }
-            return response.json();
-        })
-        .catch((error) => {
-            console.error("Erro: " + error);
-            window.alert(error);
-        });
 }
